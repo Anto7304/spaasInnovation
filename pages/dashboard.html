@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Smash&Heal</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <!-- Include header component -->
+        <!-- Placeholder for header.html -->
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <!-- Include navbar component -->
+        <!-- Placeholder for navbar.html -->
+    </nav>
+
+    <main>
+        <h1>User Dashboard</h1>
+        
+        <section id="booking-section">
+            <h2>Book a Session</h2>
+            <form id="booking-form">
+                <label for="session-type">Select Session Type:</label>
+                <select id="session-type" name="session-type" required>
+                    <option value="">--Please choose an option--</option>
+                    <option value="individual">Individual Session</option>
+                    <option value="group">Group Session</option>
+                </select>
+                
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" required>
+                
+                <label for="time">Select Time:</label>
+                <input type="time" id="time" name="time" required>
+                
+                <button type="submit">Book Now</button>
+            </form>
+            <p>Payment will be processed via M-PESA at a rate of 200 Ksh per session.</p>
+        </section>
+
+        <section id="booking-history">
+            <h2>Booking History</h2>
+            <ul>
+                <li>No bookings yet.</li>
+                <!-- Placeholder for booking history items -->
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <!-- Include footer component -->
+        <!-- Placeholder for footer.html -->
+    </footer>
+
+    <script src="../assets/js/scripts.js"></script>
+</body>
+</html>
