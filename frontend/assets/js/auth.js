@@ -1,5 +1,5 @@
 // assets/js/auth.js - Authentication Module for Smash&Heal
-const API_URL = 'http://localhost:5001/api';
+const API_URL = 'https://smashheal.onrender.com/api';
 
 // Password validation utilities
 const PasswordValidator = {
