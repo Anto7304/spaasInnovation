@@ -2,7 +2,6 @@
    SERVICES.CSS - Services Page Styles
    ======================================== */
 
-/* Services Detailed Section */
 .services-detailed {
     padding: 80px 0;
     background: var(--white);
@@ -111,7 +110,6 @@
     color: var(--primary-green);
 }
 
-/* CTA Section */
 .cta-section {
     background: var(--gradient-dark);
     padding: 60px 0;
@@ -128,7 +126,6 @@
     font-size: 18px;
     margin-bottom: 30px;
     opacity: 0.9;
-    color: rgba(255, 255, 255, 0.9);
 }
 
 .cta-button {
@@ -149,7 +146,7 @@
     box-shadow: var(--shadow-lg);
 }
 
-/* Responsive Services */
+/* Responsive */
 @media (max-width: 768px) {
     .services-detailed {
         padding: 50px 0;
