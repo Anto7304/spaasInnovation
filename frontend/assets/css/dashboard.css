@@ -1,0 +1,429 @@
+/* ========================================
+   DASHBOARD.CSS - User Dashboard Styles
+   ======================================== */
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Welcome Card */
+.welcome-card {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-green));
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .welcome-card h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+.welcome-card h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.welcome-card p {
+    opacity: 0.9;
+    margin: 5px 0 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--primary-green);
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-card.paid {
+    border-left-color: #66BB6A;
+}
+
+.stat-card.balance {
+    border-left-color: #FFC107;
+}
+
+.stat-card h3 {
+    font-size: 14px;
+    color: var(--text-light);
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card h3 i {
+    margin-right: 8px;
+    color: var(--primary-green);
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin: 0;
+}
+
+.stat-subtext {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 8px;
+}
+
+/* Main Content Grid */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* Cards */
+.card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: var(--shadow-sm);
+}
+
+.card h2 {
+    color: var(--primary-dark);
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card h2 i {
+    color: var(--primary-green);
+}
+
+/* Info Card */
+.info-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 30px;
+}
+
+.info-card h2 {
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-card h2 i {
+    color: var(--primary-green);
+}
+
+/* Booking Form */
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.form-group label i {
+    margin-right: 8px;
+    color: var(--primary-green);
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/* Buttons */
+.btn-book {
+    padding: 14px 24px;
+    background: var(--gradient-primary);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-book:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-logout {
+    background: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+/* Sessions List */
+.sessions-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.session-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: var(--light-bg);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+}
+
+.session-item:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-sm);
+}
+
+.session-info h4 {
+    margin: 0 0 5px;
+    color: var(--primary-dark);
+}
+
+.session-info p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.session-info p i {
+    margin-right: 5px;
+    color: var(--primary-green);
+}
+
+.session-status {
+    display: inline-block;
+    padding: 6px 12px;
+    background: var(--primary-green);
+    color: var(--white);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.session-status.pending {
+    background: #FFC107;
+    color: #856404;
+}
+
+.session-status.confirmed {
+    background: var(--primary-green);
+    color: var(--white);
+}
+
+.session-status.completed {
+    background: #2196f3;
+    color: var(--white);
+}
+
+.session-status.cancelled {
+    background: #f44336;
+    color: var(--white);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+}
+
+.empty-state i {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Dashboard Header (for dashboard-new.html) */
+.dashboard-header {
+    background: var(--gradient-dark);
+    color: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.dashboard-header h1 {
+    font-size: 32px;
+    margin: 0;
+}
+
+.dashboard-header p {
+    opacity: 0.9;
+    margin: 5px 0 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+
+
+/* Form Group Dashboard (alternative) */
+.form-group-dashboard {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-dashboard label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.form-group-dashboard label i {
+    margin-right: 8px;
+    color: var(--primary-green);
+}
+
+.form-group-dashboard input,
+.form-group-dashboard select {
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-group-dashboard input:focus,
+.form-group-dashboard select:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/* Responsive Dashboard */
+@media (max-width: 968px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .dashboard-header {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 20px 15px;
+    }
+    
+    .welcome-card h1,
+    .dashboard-header h1 {
+        font-size: 24px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-value {
+        font-size: 28px;
+    }
+    
+    .card,
+    .info-card {
+        padding: 20px;
+    }
+    
+    .card h2,
+    .info-card h2 {
+        font-size: 20px;
+    }
+    
+    .session-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .btn-logout {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}

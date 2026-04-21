@@ -10,7 +10,6 @@ router.use(auth, authorize('admin'));
 // Bookings management
 router.get('/bookings/all', adminController.getAllBookings);
 router.put('/bookings/:bookingId/status', adminController.updateBookingStatus);
-
 // Users management
 router.get('/users/all', adminController.getAllUsers);
 router.put('/users/:userId/role', adminController.updateUserRole);

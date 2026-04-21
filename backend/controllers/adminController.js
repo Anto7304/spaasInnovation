@@ -186,21 +186,15 @@ exports.deleteUser = async (req, res) => {
 };
 
 // Update booking status
+// Update booking status - ADD THIS METHOD
 exports.updateBookingStatus = async (req, res) => {
   try {
     const { bookingId } = req.params;
-    const { paymentStatus } = req.body;
-
-    if (!['pending', 'completed', 'failed'].includes(paymentStatus)) {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid payment status',
-      });
-    }
+    const { status } = req.body;  // Note: 'status' not 'paymentStatus'
 
     const booking = await Booking.findByIdAndUpdate(
       bookingId,
-      { paymentStatus },
+      { status: status, paymentStatus: status },
       { new: true }
     ).populate('user', 'name email');
 

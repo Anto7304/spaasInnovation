@@ -1,5 +1,5 @@
-// Authentication module for Smash&Heal
-const API_URL = 'http://localhost:5000/api';
+// assets/js/auth.js - Authentication Module for Smash&Heal
+const API_URL = 'http://localhost:5001/api';
 
 // Password validation utilities
 const PasswordValidator = {
@@ -27,11 +27,114 @@ const PasswordValidator = {
     }
 };
 
-// Update password requirement indicators in real-time
+// Check authentication status
+function isAuthenticated() {
+    const token = localStorage.getItem('authToken');
+    const currentUser = localStorage.getItem('currentUser');
+    return !!(token && currentUser);
+}
+
+// Get current user
+function getCurrentUser() {
+    const user = localStorage.getItem('currentUser');
+    return user ? JSON.parse(user) : null;
+}
+
+// Check if user is admin
+function isAdmin() {
+    const user = getCurrentUser();
+    if (!user) return false;
+    return user.role === 'admin';
+}
+
+// Login function - CONNECTED TO BACKEND
+async function login(email, password) {
+    try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            // Transform backend data to frontend format
+            const user = {
+                id: data.user.id,
+                fullName: data.user.name,
+                email: data.user.email,
+                role: data.user.role,
+                sessionsBooked: 0,
+                amountPaid: 0,
+                totalAmount: 0
+            };
+            
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            return { success: true, user: user };
+        } else {
+            return { success: false, message: data.message || 'Login failed' };
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        return { success: false, message: 'Network error. Please try again.' };
+    }
+}
+
+// Register function - CONNECTED TO BACKEND
+async function register(fullName, email, password, isAdmin = false) {
+    try {
+        const response = await fetch(`${API_URL}/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                name: fullName,
+                email, 
+                password 
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            const user = {
+                id: data.user.id,
+                fullName: data.user.name,
+                email: data.user.email,
+                role: isAdmin ? 'admin' : data.user.role,
+                sessionsBooked: 0,
+                amountPaid: 0,
+                totalAmount: 0
+            };
+            
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            return { success: true, user: user };
+        } else {
+            return { success: false, message: data.message || 'Registration failed' };
+        }
+    } catch (error) {
+        console.error('Registration error:', error);
+        return { success: false, message: 'Network error. Please try again.' };
+    }
+}
+
+// Logout function
+function logout() {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
+    window.location.href = '/index.html';
+}
+
+// Update password requirements display
 function updatePasswordRequirements(password) {
     const validation = PasswordValidator.validate(password);
-
-    // Map validation keys to element IDs
+    
     const requirementMap = {
         length: 'req-length',
         uppercase: 'req-uppercase',
@@ -39,189 +142,214 @@ function updatePasswordRequirements(password) {
         number: 'req-number',
         symbol: 'req-symbol'
     };
-
-    // Update each requirement
+    
     for (const [key, elementId] of Object.entries(requirementMap)) {
         const element = document.getElementById(elementId);
-        const uncheckedIcon = element.querySelector('.unchecked');
-        const checkedIcon = element.querySelector('.checked');
-
-        if (validation[key]) {
-            // Requirement met - show check icon
-            element.classList.add('met');
-            if (uncheckedIcon) uncheckedIcon.style.display = 'none';
-            if (checkedIcon) checkedIcon.style.display = 'inline';
-        } else {
-            // Requirement not met - show circle icon
-            element.classList.remove('met');
-            if (uncheckedIcon) uncheckedIcon.style.display = 'inline';
-            if (checkedIcon) checkedIcon.style.display = 'none';
+        if (element) {
+            const icon = element.querySelector('i');
+            if (validation[key]) {
+                element.classList.add('met');
+                if (icon) icon.className = 'fas fa-check-circle';
+            } else {
+                element.classList.remove('met');
+                if (icon) icon.className = 'fas fa-circle-notch';
+            }
         }
     }
 }
 
-// Registration handler
-function handleRegistration(event) {
+// Handle login form submission
+async function handleLogin(event) {
     event.preventDefault();
-
-    const fullName = document.getElementById('full-name').value.trim();
-    const email = document.getElementById('register-email').value.trim();
-    const password = document.getElementById('register-password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-    const termsAgree = document.getElementById('terms-agree').checked;
-
-    // Clear previous errors
-    clearFormErrors();
-
-    // Validate inputs
-    if (!fullName || !email || !password || !confirmPassword) {
-        showError('All fields are required');
-        return;
+    
+    const email = document.getElementById('email')?.value.trim();
+    const password = document.getElementById('password')?.value;
+    const emailError = document.getElementById('email-error');
+    const passwordError = document.getElementById('password-error');
+    
+    if (emailError) emailError.textContent = '';
+    if (passwordError) passwordError.textContent = '';
+    
+    let isValid = true;
+    
+    if (!email) {
+        if (emailError) emailError.textContent = 'Email is required';
+        isValid = false;
+    } else if (!email.includes('@')) {
+        if (emailError) emailError.textContent = 'Please enter a valid email';
+        isValid = false;
     }
+    
+    if (!password) {
+        if (passwordError) passwordError.textContent = 'Password is required';
+        isValid = false;
+    }
+    
+    if (!isValid) return;
+    
+    // Show loading state
+    const btn = document.querySelector('.auth-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+    }
+    
+    const result = await login(email, password);
+    
+    if (result.success) {
+        const user = result.user;
+        if (user.role === 'admin') {
+            window.location.href = '/pages/admin-dashboard.html';
+        } else {
+            window.location.href = '/pages/dashboard.html';
+        }
+    } else {
+        if (passwordError) passwordError.textContent = result.message;
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+        }
+    }
+}
 
+// Handle register form submission
+async function handleRegister(event) {
+    event.preventDefault();
+    
+    const fullName = document.getElementById('full-name')?.value.trim();
+    const email = document.getElementById('register-email')?.value.trim();
+    const password = document.getElementById('register-password')?.value;
+    const confirmPassword = document.getElementById('confirm-password')?.value;
+    const termsAgree = document.getElementById('terms-agree')?.checked;
+    
+    // Clear errors
+    document.querySelectorAll('.field-error').forEach(el => el.textContent = '');
+    
+    let isValid = true;
+    
+    if (!fullName) {
+        const errorEl = document.getElementById('full-name-error');
+        if (errorEl) errorEl.textContent = 'Full name is required';
+        isValid = false;
+    } else if (fullName.length < 2) {
+        const errorEl = document.getElementById('full-name-error');
+        if (errorEl) errorEl.textContent = 'Name must be at least 2 characters';
+        isValid = false;
+    }
+    
+    if (!email) {
+        const errorEl = document.getElementById('register-email-error');
+        if (errorEl) errorEl.textContent = 'Email is required';
+        isValid = false;
+    } else if (!email.includes('@')) {
+        const errorEl = document.getElementById('register-email-error');
+        if (errorEl) errorEl.textContent = 'Please enter a valid email';
+        isValid = false;
+    }
+    
+    if (!password) {
+        const errorEl = document.getElementById('register-password-error');
+        if (errorEl) errorEl.textContent = 'Password is required';
+        isValid = false;
+    } else if (!PasswordValidator.allMet(password)) {
+        const errorEl = document.getElementById('register-password-error');
+        if (errorEl) errorEl.textContent = 'Please meet all password requirements';
+        isValid = false;
+    }
+    
+    if (!confirmPassword) {
+        const errorEl = document.getElementById('confirm-password-error');
+        if (errorEl) errorEl.textContent = 'Please confirm your password';
+        isValid = false;
+    } else if (password !== confirmPassword) {
+        const errorEl = document.getElementById('confirm-password-error');
+        if (errorEl) errorEl.textContent = 'Passwords do not match';
+        isValid = false;
+    }
+    
     if (!termsAgree) {
-        document.getElementById('terms-error').textContent = 'You must agree to the terms';
-        return;
+        const errorEl = document.getElementById('terms-error');
+        if (errorEl) errorEl.textContent = 'You must agree to the terms';
+        isValid = false;
     }
-
-    if (password !== confirmPassword) {
-        document.getElementById('confirm-password-error').textContent = 'Passwords do not match';
-        return;
-    }
-
-    if (!PasswordValidator.allMet(password)) {
-        document.getElementById('register-password-error').textContent = 'Password does not meet all requirements';
-        return;
-    }
-
+    
+    if (!isValid) return;
+    
     // Show loading state
-    const btn = document.querySelector('.register-btn');
-    const btnText = btn.querySelector('.btn-text');
-    const btnLoader = btn.querySelector('.btn-loader');
-    btn.disabled = true;
-    btnText.style.display = 'none';
-    btnLoader.style.display = 'flex';
-
-    // Send registration request to backend
-    fetch(`${API_URL}/auth/register`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email,
-            fullName,
-            password
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Store token
-            localStorage.setItem('authToken', data.token);
-            localStorage.setItem('currentUser', JSON.stringify(data.user));
-
-            // Show success message
-            alert('Account created successfully! Redirecting to dashboard...');
-
-            // Redirect to dashboard
-            setTimeout(() => {
-                window.location.href = './dashboard.html';
-            }, 1500);
-        } else {
-            document.getElementById('register-password-error').textContent = data.error || 'Registration failed';
-        }
-    })
-    .catch(error => {
-        console.error('Registration error:', error);
-        document.getElementById('register-password-error').textContent = 'Network error. Please try again.';
-    })
-    .finally(() => {
-        btn.disabled = false;
-        btnText.style.display = 'inline';
-        btnLoader.style.display = 'none';
-    });
-}
-
-// Login handler
-function handleLogin(event) {
-    event.preventDefault();
-
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
-
-    if (!email || !password) {
-        showError('Email and password are required');
-        return;
+    const btn = document.querySelector('.auth-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
     }
-
-    // Show loading state
-    const btn = document.querySelector('.login-btn');
-    const btnText = btn.querySelector('.btn-text');
-    const btnLoader = btn.querySelector('.btn-loader');
-    btn.disabled = true;
-    btnText.style.display = 'none';
-    btnLoader.style.display = 'flex';
-
-    // Send login request to backend
-    fetch(`${API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email,
-            password
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Store token
-            localStorage.setItem('authToken', data.token);
-            localStorage.setItem('currentUser', JSON.stringify(data.user));
-
-            // Show success message
-            alert('Login successful! Redirecting to dashboard...');
-
-            // Redirect to dashboard
-            setTimeout(() => {
-                window.location.href = './dashboard.html';
-            }, 1500);
-        } else {
-            document.getElementById('password-error').textContent = data.error || 'Login failed';
+    
+    const result = await register(fullName, email, password, false);
+    
+    if (result.success) {
+        window.location.href = '/pages/dashboard.html';
+    } else {
+        const errorEl = document.getElementById('register-email-error');
+        if (errorEl) errorEl.textContent = result.message;
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
         }
-    })
-    .catch(error => {
-        console.error('Login error:', error);
-        document.getElementById('password-error').textContent = 'Network error. Please try again.';
-    })
-    .finally(() => {
-        btn.disabled = false;
-        btnText.style.display = 'inline';
-        btnLoader.style.display = 'none';
-    });
+    }
 }
 
-// Clear form errors
-function clearFormErrors() {
-    const errorElements = document.querySelectorAll('.field-error');
-    errorElements.forEach(element => {
-        element.textContent = '';
-    });
+// Redirect based on authentication
+function redirectBasedOnAuth() {
+    const token = localStorage.getItem('authToken');
+    const currentUser = localStorage.getItem('currentUser');
+    const currentPath = window.location.pathname;
+    
+    // If not authenticated and trying to access protected pages
+    if (!token || !currentUser) {
+        const protectedPages = [
+            'admin-dashboard.html',
+            'dashboard.html',
+            'dashboard-new.html',
+            'admin-register.html'
+        ];
+        
+        const isProtectedPage = protectedPages.some(page => 
+            currentPath.includes(page)
+        );
+        
+        if (isProtectedPage) {
+            localStorage.setItem('redirectAfterLogin', currentPath);
+            window.location.href = '/pages/login.html';
+            return false;
+        }
+        return false;
+    }
+    
+    // If authenticated, check role-based access
+    try {
+        const user = JSON.parse(currentUser);
+        if (currentPath.includes('admin-dashboard.html') && user.role !== 'admin') {
+            window.location.href = '/pages/dashboard.html';
+            return false;
+        }
+    } catch(e) {
+        console.error('Error parsing user:', e);
+    }
+    
+    return true;
 }
 
-// Show error message
-function showError(message) {
-    alert(message);
-}
-
-// Initialize registration form
+// Initialize auth forms
 document.addEventListener('DOMContentLoaded', function() {
+    // Setup login form
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+    
+    // Setup register form
     const registerForm = document.getElementById('register-form');
     if (registerForm) {
-        registerForm.addEventListener('submit', handleRegistration);
-
+        registerForm.addEventListener('submit', handleRegister);
+        
         // Add real-time password validation
         const passwordInput = document.getElementById('register-password');
         if (passwordInput) {
@@ -230,23 +358,52 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-
-    const loginForm = document.getElementById('login-form');
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
-    }
-
-    // Check if user is already logged in
+    
+    // Password toggle functionality for all password fields
+    document.querySelectorAll('.password-toggle').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('input');
+            const icon = this.querySelector('i');
+            if (input && input.type === 'password') {
+                input.type = 'text';
+                if (icon) icon.className = 'fas fa-eye-slash';
+            } else if (input) {
+                input.type = 'password';
+                if (icon) icon.className = 'fas fa-eye';
+            }
+        });
+    });
+    
+    // Check if user is already logged in and redirect from auth pages
     const token = localStorage.getItem('authToken');
-    if (token && window.location.pathname.includes('login') || window.location.pathname.includes('register')) {
-        // Redirect logged-in users away from auth pages
-        // window.location.href = './dashboard.html';
+    const currentPath = window.location.pathname;
+    const isAuthPage = currentPath.includes('login.html') || 
+                       currentPath.includes('register.html') || 
+                       currentPath.includes('register-new.html');
+    
+    if (token && isAuthPage) {
+        const user = getCurrentUser();
+        if (user) {
+            if (user.role === 'admin') {
+                window.location.href = '/pages/admin-dashboard.html';
+            } else {
+                window.location.href = '/pages/dashboard.html';
+            }
+        }
     }
 });
 
-// Logout handler
-function logout() {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('currentUser');
-    window.location.href = './login.html';
+// Export functions for use in other files (if using modules)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        isAuthenticated,
+        getCurrentUser,
+        isAdmin,
+        login,
+        register,
+        logout,
+        redirectBasedOnAuth,
+        PasswordValidator,
+        updatePasswordRequirements
+    };
 }

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resources - Smash&Heal</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/resources.css">
 </head>
-
 <body>
-    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
     <main>
@@ -117,38 +117,21 @@
         </section>
     </main>
 
-    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
+    <script src="/assets/js/auth.js"></script>
+    <script src="/assets/js/components.js"></script>
+    <script src="/assets/js/main.js"></script>
     <script>
-        // Load header and footer components
-        function loadComponents() {
-            fetch('../components/header.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('header-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading header:', error));
-
-            fetch('../components/footer.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('footer-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading footer:', error));
-        }
-        loadComponents();
-
         // Search functionality
-        document.getElementById('searchBtn').addEventListener('click', function () {
+        document.getElementById('searchBtn')?.addEventListener('click', function() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const categories = document.querySelectorAll('.resource-category');
-
+            
             categories.forEach(category => {
                 const text = category.textContent.toLowerCase();
                 if (text.includes(searchTerm) && searchTerm !== '') {
                     category.style.display = 'block';
-                    category.style.animation = 'fadeIn 0.5s ease';
                 } else if (searchTerm === '') {
                     category.style.display = 'block';
                 } else {
@@ -156,14 +139,15 @@
                 }
             });
         });
-
-        // Enter key search
-        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+        
+        document.getElementById('searchInput')?.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 document.getElementById('searchBtn').click();
             }
         });
     </script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
-
 </html>

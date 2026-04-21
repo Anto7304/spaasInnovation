@@ -1,0 +1,183 @@
+/* ========================================
+   ABOUT.CSS - About Us Page Styles
+   ======================================== */
+
+/* About Content Section */
+.about-content-section {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.about-text h2 {
+    color: var(--primary-dark);
+    font-size: 28px;
+    margin: 30px 0 15px;
+}
+
+.about-text h2:first-child {
+    margin-top: 0;
+}
+
+.about-text p {
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.values-list {
+    list-style: none;
+    padding: 0;
+}
+
+.values-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+}
+
+.values-list li i {
+    width: 30px;
+    height: 30px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 14px;
+}
+
+.about-image {
+    position: sticky;
+    top: 100px;
+}
+
+.about-image .nature-image {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+}
+
+.image-decoration {
+    background: var(--gradient-primary);
+    color: var(--white);
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.image-decoration i {
+    font-size: 40px;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+.image-decoration blockquote {
+    font-size: 18px;
+    font-style: italic;
+    margin: 0;
+}
+
+/* Team Section */
+.team-section {
+    padding: 80px 0;
+    background: var(--gradient-light);
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.team-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.team-card i {
+    font-size: 80px;
+    color: var(--primary-green);
+    margin-bottom: 20px;
+}
+
+.team-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.team-card p:first-of-type {
+    color: var(--primary-green);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.team-card p:last-of-type {
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Responsive About */
+@media (max-width: 968px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .about-image {
+        position: static;
+    }
+    
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .about-content-section {
+        padding: 50px 0;
+    }
+    
+    .team-section {
+        padding: 50px 0;
+    }
+    
+    .about-text h2 {
+        font-size: 24px;
+    }
+    
+    .values-list li {
+        font-size: 14px;
+    }
+    
+    .team-card {
+        padding: 20px;
+    }
+    
+    .team-card i {
+        font-size: 60px;
+    }
+}

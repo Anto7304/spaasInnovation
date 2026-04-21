@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Smash&Heal</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/about.css">
 </head>
-
 <body>
-    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
     <main>
@@ -26,32 +26,24 @@
                 <div class="about-grid">
                     <div class="about-text">
                         <h2>Our Mission</h2>
-                        <p>Smash&Heal is dedicated to promoting mental wellness through accessible resources and
-                            supportive community engagement. Our mission is to empower individuals to take charge of
-                            their mental health and well-being.</p>
+                        <p>Smash&Heal is dedicated to promoting mental wellness through accessible resources and supportive community engagement. Our mission is to empower individuals to take charge of their mental health and well-being.</p>
 
                         <h2>Our Vision</h2>
-                        <p>We envision a world where mental health is prioritized, and everyone has access to the
-                            support they need to thrive. Our programs are designed to foster resilience, understanding,
-                            and healing.</p>
+                        <p>We envision a world where mental health is prioritized, and everyone has access to the support they need to thrive. Our programs are designed to foster resilience, understanding, and healing.</p>
 
                         <h2>Our Values</h2>
                         <ul class="values-list">
-                            <li><i class="fas fa-heart"></i> Compassion - We treat everyone with kindness and empathy
-                            </li>
-                            <li><i class="fas fa-shield-alt"></i> Privacy - Your confidentiality is our top priority
-                            </li>
+                            <li><i class="fas fa-heart"></i> Compassion - We treat everyone with kindness and empathy</li>
+                            <li><i class="fas fa-shield-alt"></i> Privacy - Your confidentiality is our top priority</li>
                             <li><i class="fas fa-users"></i> Community - We believe in the power of connection</li>
-                            <li><i class="fas fa-chart-line"></i> Growth - Continuous improvement in everything we do
-                            </li>
+                            <li><i class="fas fa-chart-line"></i> Growth - Continuous improvement in everything we do</li>
                         </ul>
                     </div>
                     <div class="about-image">
-                        <img src="https://via.placeholder.com/500x400" alt="About Us" class="nature-image">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&h=400&fit=crop" alt="About Us" class="nature-image">
                         <div class="image-decoration">
                             <i class="fas fa-quote-left"></i>
-                            <blockquote>Mental health is not a destination, but a journey of continuous growth.
-                            </blockquote>
+                            <blockquote>Mental health is not a destination, but a journey of continuous growth.</blockquote>
                         </div>
                     </div>
                 </div>
@@ -69,50 +61,29 @@
                         <i class="fas fa-user-circle"></i>
                         <h3>Jane Doe</h3>
                         <p>Founder & Mental Health Advocate</p>
-                        <p>Jane has over a decade of experience in mental health advocacy and is passionate about
-                            creating safe spaces for healing.</p>
+                        <p>Jane has over a decade of experience in mental health advocacy and is passionate about creating safe spaces for healing.</p>
                     </div>
                     <div class="team-card">
                         <i class="fas fa-user-circle"></i>
                         <h3>John Smith</h3>
                         <p>Program Coordinator</p>
-                        <p>With a background in psychology, John coordinates our sessions and ensures that our programs
-                            meet the needs of our community.</p>
+                        <p>With a background in psychology, John coordinates our sessions and ensures that our programs meet the needs of our community.</p>
                     </div>
                     <div class="team-card">
                         <i class="fas fa-user-circle"></i>
                         <h3>Dr. Sarah Johnson</h3>
                         <p>Clinical Psychologist</p>
-                        <p>Specializing in anxiety, depression, and trauma-informed care with over 15 years of
-                            experience.</p>
+                        <p>Specializing in anxiety, depression, and trauma-informed care with over 15 years of experience.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
-    <script>
-        // Load header and footer components
-        function loadComponents() {
-            fetch('../components/header.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('header-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading header:', error));
-
-            fetch('../components/footer.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('footer-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading footer:', error));
-        }
-        loadComponents();
-    </script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
-
 </html>

@@ -3,61 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard - Smash&Heal</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <title>My Dashboard - Smash&Heal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
 </head>
 <body>
-    <!-- Header -->
-    <div id="header">
-        <!-- Include header component -->
-        <!-- Placeholder for header.html -->
-    </div>
-
-    <!-- Navigation Bar -->
-    <nav id="navbar">
-        <!-- Include navbar component -->
-        <!-- Placeholder for navbar.html -->
-    </nav>
+    <header class="main-header">
+        <div class="logo-container">
+            <a href="/index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="smash">Smash</span>
+                    <span class="and">&</span>
+                    <span class="heal">Heal</span>
+                </div>
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="main-nav" id="mainNav">
+                <ul id="nav-links">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/pages/about-us.html">About</a></li>
+                    <li><a href="/pages/services.html">Services</a></li>
+                    <li><a href="/pages/resources.html">Resources</a></li>
+                    <li><a href="/pages/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <main>
-        <h1>User Dashboard</h1>
-        
-        <section id="booking-section">
-            <h2>Book a Session</h2>
-            <form id="booking-form">
-                <label for="session-type">Select Session Type:</label>
-                <select id="session-type" name="session-type" required>
-                    <option value="">--Please choose an option--</option>
-                    <option value="individual">Individual Session</option>
-                    <option value="group">Group Session</option>
-                </select>
-                
-                <label for="date">Select Date:</label>
-                <input type="date" id="date" name="date" required>
-                
-                <label for="time">Select Time:</label>
-                <input type="time" id="time" name="time" required>
-                
-                <button type="submit">Book Now</button>
-            </form>
-            <p>Payment will be processed via M-PESA at a rate of 200 Ksh per session.</p>
-        </section>
+        <div class="dashboard-container">
+           <div class="welcome-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <h1>Welcome, <span id="userName">User</span>!</h1>
+                        <p>Your mental wellness journey starts here</p>
+                    </div>
+                    <button onclick="logout()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>Sessions Booked</h3>
+                    <div class="value" id="sessionsBooked">0</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Amount Paid</h3>
+                    <div class="value" id="amountPaid">KES 0</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Wellness Score</h3>
+                    <div class="value" id="wellnessScore">85%</div>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <h2><i class="fas fa-plus-circle"></i> Book a New Session</h2>
+                <form id="booking-form" class="booking-form">
+                    <div class="form-group">
+                        <label for="session-type"><i class="fas fa-tag"></i> Session Type</label>
+                        <select id="session-type" required>
+                            <option value="">-- Select Session Type --</option>
+                            <option value="individual">Individual Session (200 KES)</option>
+                            <option value="group">Group Session (200 KES)</option>
+                            <option value="workshop">Workshop (200 KES)</option>
+                        </select>
+                    </div>
 
-        <section id="booking-history">
-            <h2>Booking History</h2>
-            <ul>
-                <li>No bookings yet.</li>
-                <!-- Placeholder for booking history items -->
-            </ul>
-        </section>
+                    <div class="form-group">
+                        <label for="session-date"><i class="fas fa-calendar"></i> Date</label>
+                        <input type="date" id="session-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="session-time"><i class="fas fa-clock"></i> Time</label>
+                        <input type="time" id="session-time" required>
+                    </div>
+
+                    <button type="submit" class="btn-book">
+                        <i class="fas fa-check"></i> Book Session
+                    </button>
+                </form>
+            </div>
+            
+            <div class="info-card">
+                <h2><i class="fas fa-calendar-alt"></i> Upcoming Sessions</h2>
+                <div id="upcomingSessions">
+                    <p style="color: var(--text-light);">Loading...</p>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer id="footer">
-        <!-- Include footer component -->
-        <!-- Placeholder for footer.html -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="/index.html" class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="smash">Smash</span>
+                            <span class="and">&</span>
+                            <span class="heal">Heal</span>
+                        </div>
+                    </a>
+                    <p>Mental wellness for everyone</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/pages/about-us.html">About Us</a></li>
+                        <li><a href="/pages/services.html">Services</a></li>
+                        <li><a href="/pages/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Smash&Heal. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
-    <script src="../assets/js/scripts.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
 </body>
 </html>

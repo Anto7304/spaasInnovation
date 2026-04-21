@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - Smash&Heal</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/services.css">
 </head>
-
 <body>
-    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
     <main>
@@ -23,8 +23,7 @@
 
         <section class="services-detailed">
             <div class="container">
-                <p class="services-intro">At Smash&Heal, we offer a variety of sessions designed to promote mental
-                    wellness and personal growth. Below is a list of our services:</p>
+                <p class="services-intro">At Smash&Heal, we offer a variety of sessions designed to promote mental wellness and personal growth. Below is a list of our services:</p>
 
                 <div class="services-grid-detailed">
                     <div class="service-detailed-card">
@@ -32,8 +31,7 @@
                             <i class="fas fa-user-md"></i>
                         </div>
                         <h3>Individual Counseling</h3>
-                        <p>One-on-one sessions focusing on personal challenges and mental health. Personalized attention
-                            to address your unique needs and goals.</p>
+                        <p>One-on-one sessions focusing on personal challenges and mental health. Personalized attention to address your unique needs and goals.</p>
                         <p class="service-price">Price: 200 Ksh per session</p>
                         <a href="dashboard.html" class="service-link">Book a Session →</a>
                     </div>
@@ -43,8 +41,7 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <h3>Group Therapy</h3>
-                        <p>Supportive group sessions that foster community and shared experiences. Connect with others
-                            facing similar challenges.</p>
+                        <p>Supportive group sessions that foster community and shared experiences. Connect with others facing similar challenges.</p>
                         <p class="service-price">Price: 200 Ksh per session</p>
                         <a href="dashboard.html" class="service-link">Book a Session →</a>
                     </div>
@@ -54,10 +51,9 @@
                             <i class="fas fa-chalkboard-teacher"></i>
                         </div>
                         <h3>Workshops</h3>
-                        <p>Interactive workshops focusing on various mental health topics. Learn practical skills and
-                            strategies for better mental health.</p>
+                        <p>Interactive workshops focusing on various mental health topics. Learn practical skills and strategies for better mental health.</p>
                         <p class="service-price">Price: 200 Ksh per session</p>
-                        <a href="dashboard.html" class="service-link">Book a Session →</a>
+                        <a href="dashboard-new.html" class="service-link">Book a Session →</a>
                     </div>
 
                     <div class="service-detailed-card">
@@ -67,13 +63,12 @@
                         <h3>24/7 Crisis Support</h3>
                         <p>Immediate help when you need it most. Our crisis team is available around the clock.</p>
                         <p class="service-price">Free Support</p>
-                        <a href="#" class="service-link">Learn More →</a>
+                        <a href="contact.html" class="service-link">Learn More →</a>
                     </div>
                 </div>
 
                 <div class="services-note">
-                    <p><strong>Note:</strong> Each session is designed to provide support and tools for better mental
-                        health. We encourage you to book a session today!</p>
+                    <p><strong>Note:</strong> Each session is designed to provide support and tools for better mental health. We encourage you to book a session today!</p>
                 </div>
             </div>
         </section>
@@ -89,28 +84,10 @@
         </section>
     </main>
 
-    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
-    <script>
-        // Load header and footer components
-        function loadComponents() {
-            fetch('../components/header.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('header-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading header:', error));
-
-            fetch('../components/footer.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('footer-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading footer:', error));
-        }
-        loadComponents();
-    </script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
-
 </html>

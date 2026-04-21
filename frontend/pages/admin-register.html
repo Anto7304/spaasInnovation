@@ -4,246 +4,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Registration - Smash&Heal</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #EAF8ED 0%, #DFF2E0 50%, #F5FBF6 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-        }
-
-        .admin-register-container {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        .admin-register-container h1 {
-            color: #2d5a3d;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-
-        .admin-register-container p {
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #2d5a3d;
-            font-weight: 600;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            font-family: 'Poppins', sans-serif;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #4CAF50;
-        }
-
-        .register-btn {
-            background: linear-gradient(135deg, #4CAF50 0%, #388e3c 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.2s ease;
-        }
-
-        .register-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .register-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            background: #ffebee;
-            color: #c62828;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .success-message {
-            background: #e8f5e9;
-            color: #388e3c;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .admin-badge {
-            background: #ff9800;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
 </head>
 <body>
-    <div class="admin-register-container">
-        <span class="admin-badge"><i class="fas fa-shield-alt"></i> Administrator</span>
-        <h1>Create Admin Account</h1>
-        <p>Create an administrator account to manage the Smash&Heal system</p>
+    <main class="auth-main">
+        <div class="auth-container register-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="logo" style="justify-content: center;">
+                        <div class="logo-icon">
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="smash">Smash</span>
+                            <span class="and">&</span>
+                            <span class="heal">Heal</span>
+                        </div>
+                    </div>
+                    <span class="admin-badge" style="display: inline-block; background: #ff9800; color: white; padding: 5px 15px; border-radius: 20px; font-size: 12px; margin-bottom: 15px;">
+                        <i class="fas fa-shield-alt"></i> Administrator
+                    </span>
+                    <h1>Create Admin Account</h1>
+                    <p>Create an administrator account to manage the Smash&Heal system</p>
+                </div>
 
-        <div id="errorMessage" class="error-message"></div>
-        <div id="successMessage" class="success-message"></div>
+                <form id="admin-register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                        <div class="field-error" id="fullName-error"></div>
+                    </div>
 
-        <form id="adminRegisterForm">
-            <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="admin@smashandheal.com">
+                        <div class="field-error" id="email-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-lock"></i> Password</label>
+                        <div class="password-input-container">
+                            <input type="password" id="password" name="password" required placeholder="Create a strong password">
+                            <button type="button" class="password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-requirements">
+                            <p>Password must contain:</p>
+                            <ul>
+                                <li id="req-length" class="requirement"><i class="fas fa-circle-notch"></i> At least 8 characters</li>
+                                <li id="req-uppercase" class="requirement"><i class="fas fa-circle-notch"></i> One uppercase letter</li>
+                                <li id="req-lowercase" class="requirement"><i class="fas fa-circle-notch"></i> One lowercase letter</li>
+                                <li id="req-number" class="requirement"><i class="fas fa-circle-notch"></i> One number</li>
+                                <li id="req-symbol" class="requirement"><i class="fas fa-circle-notch"></i> One special character</li>
+                            </ul>
+                        </div>
+                        <div class="field-error" id="password-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword"><i class="fas fa-lock"></i> Confirm Password</label>
+                        <div class="password-input-container">
+                            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+                            <button type="button" class="password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="field-error" id="confirmPassword-error"></div>
+                    </div>
+
+                    <button type="submit" class="auth-btn">
+                        <i class="fas fa-user-shield"></i> Create Admin Account
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p><a href="login.html">← Back to Login</a></p>
+                </div>
             </div>
+        </div>
+    </main>
 
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required placeholder="admin@smashandheal.com">
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required placeholder="Create a strong password">
-            </div>
-
-            <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
-            </div>
-
-            <button type="submit" class="register-btn" id="registerBtn">
-                <i class="fas fa-user-plus"></i> Create Admin Account
-            </button>
-        </form>
-
-        <a href="/pages/login.html" class="back-link">
-            <i class="fas fa-arrow-left"></i> Back to Login
-        </a>
-    </div>
-
+    <script src="/assets/js/auth.js"></script>
     <script>
-        const API_URL = 'http://localhost:5000/api';
-
-        document.getElementById('adminRegisterForm').addEventListener('submit', async function(e) {
+        // Password requirements update
+        function updateAdminPasswordRequirements(password) {
+            const checks = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password),
+                symbol: /[!@#$%^&*]/.test(password)
+            };
+            
+            for (const [key, valid] of Object.entries(checks)) {
+                const element = document.getElementById(`req-${key}`);
+                if (element) {
+                    const icon = element.querySelector('i');
+                    if (valid) {
+                        element.classList.add('met');
+                        icon.className = 'fas fa-check-circle';
+                    } else {
+                        element.classList.remove('met');
+                        icon.className = 'fas fa-circle-notch';
+                    }
+                }
+            }
+            return Object.values(checks).every(v => v === true);
+        }
+        
+        document.getElementById('password')?.addEventListener('input', function() {
+            updateAdminPasswordRequirements(this.value);
+        });
+        
+        // Form submission
+        document.getElementById('admin-register-form')?.addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            const registerBtn = document.getElementById('registerBtn');
-            const errorMessage = document.getElementById('errorMessage');
-            const successMessage = document.getElementById('successMessage');
-
-            // Clear previous messages
-            errorMessage.style.display = 'none';
-            successMessage.style.display = 'none';
-
-            // Get form data
+            
             const fullName = document.getElementById('fullName').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-
-            // Validate passwords match
-            if (password !== confirmPassword) {
-                errorMessage.textContent = 'Passwords do not match';
-                errorMessage.style.display = 'block';
-                return;
+            
+            // Clear errors
+            document.querySelectorAll('.field-error').forEach(el => el.textContent = '');
+            
+            let isValid = true;
+            
+            if (!fullName) {
+                document.getElementById('fullName-error').textContent = 'Full name is required';
+                isValid = false;
             }
-
-            // Disable button
-            registerBtn.disabled = true;
-            registerBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
-
-            try {
-                const response = await fetch(`${API_URL}/auth/register`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        fullName,
-                        email,
-                        password,
-                        isAdmin: true
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    successMessage.textContent = 'Admin account created successfully! Redirecting to dashboard...';
-                    successMessage.style.display = 'block';
-
-                    // Store auth data
-                    localStorage.setItem('authToken', data.token);
-                    localStorage.setItem('currentUser', JSON.stringify(data.user));
-
-                    // Redirect to admin dashboard after 2 seconds
-                    setTimeout(() => {
-                        window.location.href = '/pages/admin-dashboard.html';
-                    }, 2000);
+            
+            if (!email) {
+                document.getElementById('email-error').textContent = 'Email is required';
+                isValid = false;
+            } else if (!email.includes('@')) {
+                document.getElementById('email-error').textContent = 'Please enter a valid email';
+                isValid = false;
+            }
+            
+            if (!password) {
+                document.getElementById('password-error').textContent = 'Password is required';
+                isValid = false;
+            } else if (!updateAdminPasswordRequirements(password)) {
+                document.getElementById('password-error').textContent = 'Please meet all password requirements';
+                isValid = false;
+            }
+            
+            if (!confirmPassword) {
+                document.getElementById('confirmPassword-error').textContent = 'Please confirm your password';
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                document.getElementById('confirmPassword-error').textContent = 'Passwords do not match';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                const btn = document.querySelector('.auth-btn');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Admin Account...';
+                
+                const result = await register(fullName, email, password, true);
+                
+                if (result.success) {
+                    window.location.href = '/pages/admin-dashboard.html';
                 } else {
-                    errorMessage.textContent = data.error || 'Registration failed';
-                    errorMessage.style.display = 'block';
+                    document.getElementById('email-error').textContent = result.message;
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-user-shield"></i> Create Admin Account';
                 }
-            } catch (error) {
-                errorMessage.textContent = 'Network error. Make sure the backend server is running on port 5000.';
-                errorMessage.style.display = 'block';
-                console.error('Registration error:', error);
-            } finally {
-                // Re-enable button
-                registerBtn.disabled = false;
-                registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Admin Account';
             }
         });
+        
+        // Password toggle
+        document.querySelectorAll('.password-toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('input');
+                const icon = this.querySelector('i');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    input.type = 'password';
+                    icon.className = 'fas fa-eye';
+                }
+            });
+        });
     </script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/components.js"></script>
 </body>
 </html>

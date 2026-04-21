@@ -1,6 +1,6 @@
 <header class="main-header">
     <div class="logo-container">
-        <div class="logo">
+        <a href="/index.html" class="logo">
             <div class="logo-icon">
                 <i class="fas fa-leaf"></i>
                 <i class="fas fa-heart"></i>
@@ -10,77 +10,72 @@
                 <span class="and">&</span>
                 <span class="heal">Heal</span>
             </div>
-        </div>
-        <nav class="main-nav">
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav class="main-nav" id="mainNav">
             <ul id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="resources.html">Resources</a></li>
-                <!-- Dynamic auth links will be inserted here -->
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/pages/about-us.html">About</a></li>
+                <li><a href="/pages/services.html">Services</a></li>
+                <li><a href="/pages/resources.html">Resources</a></li>
+                <li><a href="/pages/contact.html">Contact</a></li>
             </ul>
         </nav>
     </div>
 </header>
 
 <script>
-    // Check login status and update navbar
     function updateNavbar() {
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const token = localStorage.getItem('authToken');
         const navList = document.getElementById('nav-links');
-
         if (!navList) return;
-
-        // Remove existing auth links
+        
         const existingAuthLinks = document.querySelectorAll('.auth-link');
         existingAuthLinks.forEach(link => link.remove());
-
-        if (isLoggedIn) {
-            // Logged in user
+        
+        if (token) {
             const dashboardLi = document.createElement('li');
             dashboardLi.className = 'auth-link';
-            dashboardLi.innerHTML = '<a href="dashboard.html">Dashboard</a>';
+            dashboardLi.innerHTML = '<a href="/pages/dashboard-new.html" class="cta-nav">Dashboard</a>';
             navList.appendChild(dashboardLi);
-
-            const profileLi = document.createElement('li');
-            profileLi.className = 'auth-link';
-            profileLi.innerHTML = '<a href="profile.html">Profile</a>';
-            navList.appendChild(profileLi);
-
+            
             const logoutLi = document.createElement('li');
             logoutLi.className = 'auth-link';
-            logoutLi.innerHTML = '<a href="#" id="logout-btn" class="cta-nav">Logout</a>';
+            logoutLi.innerHTML = '<a href="#" id="logout-btn" class="cta-nav" style="background:#f44336;">Logout</a>';
             navList.appendChild(logoutLi);
-
+            
             const logoutBtn = document.getElementById('logout-btn');
             if (logoutBtn) {
-                logoutBtn.addEventListener('click', function (e) {
+                logoutBtn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    localStorage.removeItem('isLoggedIn');
-                    localStorage.removeItem('userEmail');
-                    localStorage.removeItem('userName');
-                    alert('Logged out successfully!');
-                    window.location.href = 'index.html';
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('currentUser');
+                    window.location.href = '/index.html';
                 });
             }
         } else {
-            // Logged out user
             const loginLi = document.createElement('li');
             loginLi.className = 'auth-link';
-            loginLi.innerHTML = '<a href="login.html" class="cta-nav">Login</a>';
+            loginLi.innerHTML = '<a href="/pages/login.html" class="cta-nav">Login</a>';
             navList.appendChild(loginLi);
-
+            
             const signupLi = document.createElement('li');
             signupLi.className = 'auth-link';
-            signupLi.innerHTML = '<a href="register.html" class="cta-nav">Sign Up</a>';
+            signupLi.innerHTML = '<a href="/pages/register.html" class="cta-nav">Sign Up</a>';
             navList.appendChild(signupLi);
         }
     }
-
-    // Run when page loads
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', updateNavbar);
-    } else {
-        updateNavbar();
+    
+    document.addEventListener('DOMContentLoaded', updateNavbar);
+    
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mainNav = document.getElementById('mainNav');
+    if (mobileBtn && mainNav) {
+        mobileBtn.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+        });
     }
 </script>

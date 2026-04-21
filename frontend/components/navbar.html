@@ -1,64 +1,73 @@
 <nav class="main-nav">
     <ul id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="resources.html">Resources</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <!-- Dynamic auth links will be inserted here -->
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/pages/about-us.html">About Us</a></li>
+        <li><a href="/pages/services.html">Services</a></li>
+        <li><a href="/pages/resources.html">Resources</a></li>
+        <li><a href="/pages/contact.html">Contact</a></li>
     </ul>
 </nav>
 
 <script>
-    // Check login status and update navbar
     function updateNavbarAuth() {
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const token = localStorage.getItem('authToken');
         const navList = document.getElementById('nav-links');
-
+        
         if (!navList) return;
-
+        
         // Remove existing auth links
         const existingAuthLinks = document.querySelectorAll('.auth-link');
         existingAuthLinks.forEach(link => link.remove());
-
-        if (isLoggedIn) {
+        
+        if (token) {
             // Logged in user - show Dashboard and Logout
             const dashboardLi = document.createElement('li');
             dashboardLi.className = 'auth-link';
-            dashboardLi.innerHTML = '<a href="dashboard.html">Dashboard</a>';
+            dashboardLi.innerHTML = '<a href="/pages/dashboard-new.html" class="cta-nav">Dashboard</a>';
             navList.appendChild(dashboardLi);
-
+            
+            const adminCheck = document.createElement('li');
+            adminCheck.className = 'auth-link';
+            const currentUser = localStorage.getItem('currentUser');
+            let isAdmin = false;
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                isAdmin = user.role === 'admin' || (user.email && user.email.includes('admin'));
+            }
+            
+            if (isAdmin) {
+                adminCheck.innerHTML = '<a href="/pages/admin-dashboard.html" class="cta-nav" style="background:#ff9800;">Admin</a>';
+                navList.appendChild(adminCheck);
+            }
+            
             const logoutLi = document.createElement('li');
             logoutLi.className = 'auth-link';
-            logoutLi.innerHTML = '<a href="#" id="logout-btn" class="cta-nav">Logout</a>';
+            logoutLi.innerHTML = '<a href="#" id="logout-btn" class="cta-nav" style="background:#f44336;">Logout</a>';
             navList.appendChild(logoutLi);
-
-            // Add logout functionality
+            
             const logoutBtn = document.getElementById('logout-btn');
             if (logoutBtn) {
-                logoutBtn.addEventListener('click', function (e) {
+                logoutBtn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    localStorage.removeItem('isLoggedIn');
-                    localStorage.removeItem('userEmail');
-                    localStorage.removeItem('userName');
-                    alert('Logged out successfully!');
-                    window.location.href = 'index.html';
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('currentUser');
+                    window.location.href = '/index.html';
                 });
             }
         } else {
             // Logged out user - show Login and Sign Up
             const loginLi = document.createElement('li');
             loginLi.className = 'auth-link';
-            loginLi.innerHTML = '<a href="login.html" class="cta-nav">Login</a>';
+            loginLi.innerHTML = '<a href="/pages/login.html" class="cta-nav">Login</a>';
             navList.appendChild(loginLi);
-
+            
             const signupLi = document.createElement('li');
             signupLi.className = 'auth-link';
-            signupLi.innerHTML = '<a href="register.html" class="cta-nav">Sign Up</a>';
+            signupLi.innerHTML = '<a href="/pages/register.html" class="cta-nav">Sign Up</a>';
             navList.appendChild(signupLi);
         }
     }
-
+    
     // Run when page loads
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', updateNavbarAuth);
