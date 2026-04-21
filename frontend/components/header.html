@@ -1,0 +1,86 @@
+<header class="main-header">
+    <div class="logo-container">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-leaf"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="logo-text">
+                <span class="smash">Smash</span>
+                <span class="and">&</span>
+                <span class="heal">Heal</span>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <ul id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <!-- Dynamic auth links will be inserted here -->
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<script>
+    // Check login status and update navbar
+    function updateNavbar() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const navList = document.getElementById('nav-links');
+
+        if (!navList) return;
+
+        // Remove existing auth links
+        const existingAuthLinks = document.querySelectorAll('.auth-link');
+        existingAuthLinks.forEach(link => link.remove());
+
+        if (isLoggedIn) {
+            // Logged in user
+            const dashboardLi = document.createElement('li');
+            dashboardLi.className = 'auth-link';
+            dashboardLi.innerHTML = '<a href="dashboard.html">Dashboard</a>';
+            navList.appendChild(dashboardLi);
+
+            const profileLi = document.createElement('li');
+            profileLi.className = 'auth-link';
+            profileLi.innerHTML = '<a href="profile.html">Profile</a>';
+            navList.appendChild(profileLi);
+
+            const logoutLi = document.createElement('li');
+            logoutLi.className = 'auth-link';
+            logoutLi.innerHTML = '<a href="#" id="logout-btn" class="cta-nav">Logout</a>';
+            navList.appendChild(logoutLi);
+
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('userEmail');
+                    localStorage.removeItem('userName');
+                    alert('Logged out successfully!');
+                    window.location.href = 'index.html';
+                });
+            }
+        } else {
+            // Logged out user
+            const loginLi = document.createElement('li');
+            loginLi.className = 'auth-link';
+            loginLi.innerHTML = '<a href="login.html" class="cta-nav">Login</a>';
+            navList.appendChild(loginLi);
+
+            const signupLi = document.createElement('li');
+            signupLi.className = 'auth-link';
+            signupLi.innerHTML = '<a href="register.html" class="cta-nav">Sign Up</a>';
+            navList.appendChild(signupLi);
+        }
+    }
+
+    // Run when page loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateNavbar);
+    } else {
+        updateNavbar();
+    }
+</script>

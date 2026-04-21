@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - Smash&Heal</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1>Mental Health Resources</h1>
+                <p>Free tools, articles, and guides to support your wellness journey</p>
+            </div>
+        </section>
+
+        <section class="resources-categories">
+            <div class="container">
+                <div class="resources-search">
+                    <input type="text" placeholder="Search resources..." aria-label="Search resources" id="searchInput">
+                    <button type="button" class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-category">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>Downloadable PDFs</h3>
+                        <ul>
+                            <li><a href="#">Guide to Mental Wellness</a></li>
+                            <li><a href="#">Coping Strategies for Stress</a></li>
+                            <li><a href="#">Mindfulness Techniques</a></li>
+                            <li><a href="#">Daily Mood Tracker</a></li>
+                            <li><a href="#">Crisis Safety Plan</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-category">
+                        <i class="fas fa-book-open"></i>
+                        <h3>Guides & Articles</h3>
+                        <ul>
+                            <li><a href="#">Understanding Anxiety</a></li>
+                            <li><a href="#">Building Resilience</a></li>
+                            <li><a href="#">Healthy Living Tips</a></li>
+                            <li><a href="#">Managing Depression</a></li>
+                            <li><a href="#">Improving Sleep Hygiene</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-category">
+                        <i class="fas fa-video"></i>
+                        <h3>Videos</h3>
+                        <ul>
+                            <li><a href="#">Introduction to Mindfulness</a></li>
+                            <li><a href="#">Yoga for Mental Health</a></li>
+                            <li><a href="#">Breathing Exercises</a></li>
+                            <li><a href="#">Guided Meditation</a></li>
+                            <li><a href="#">Progressive Muscle Relaxation</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-category">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>Crisis Hotlines</h3>
+                        <ul>
+                            <li><strong>988 Suicide & Crisis Lifeline:</strong> Call 988</li>
+                            <li><strong>Crisis Text Line:</strong> Text HOME to 741741</li>
+                            <li><strong>National Helpline:</strong> 1-800-662-4357</li>
+                            <li><strong>Veterans Crisis Line:</strong> 1-800-273-8255</li>
+                            <li><strong>Disaster Distress Helpline:</strong> 1-800-985-5990</li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-category">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Recommended Apps</h3>
+                        <ul>
+                            <li><a href="#">Calm - Meditation & Sleep</a></li>
+                            <li><a href="#">Headspace - Mindfulness</a></li>
+                            <li><a href="#">BetterHelp - Online Therapy</a></li>
+                            <li><a href="#">Daylio - Mood Tracker</a></li>
+                            <li><a href="#">Sanvello - Anxiety & Depression</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-category">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <h3>Support Groups</h3>
+                        <ul>
+                            <li><a href="#">NAMI Connection Support Group</a></li>
+                            <li><a href="#">Anxiety & Depression Support Group</a></li>
+                            <li><a href="#">PTSD Support Community</a></li>
+                            <li><a href="#">GriefShare Support Groups</a></li>
+                            <li><a href="#">LGBTQ+ Mental Health Support</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Need Immediate Help?</h2>
+                    <p>Don't hesitate to reach out. We're here for you 24/7.</p>
+                    <a href="register.html" class="cta-button">Talk to Someone Now</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load header and footer components
+        function loadComponents() {
+            fetch('../components/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading header:', error));
+
+            fetch('../components/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading footer:', error));
+        }
+        loadComponents();
+
+        // Search functionality
+        document.getElementById('searchBtn').addEventListener('click', function () {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const categories = document.querySelectorAll('.resource-category');
+
+            categories.forEach(category => {
+                const text = category.textContent.toLowerCase();
+                if (text.includes(searchTerm) && searchTerm !== '') {
+                    category.style.display = 'block';
+                    category.style.animation = 'fadeIn 0.5s ease';
+                } else if (searchTerm === '') {
+                    category.style.display = 'block';
+                } else {
+                    category.style.display = 'none';
+                }
+            });
+        });
+
+        // Enter key search
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('searchBtn').click();
+            }
+        });
+    </script>
+</body>
+
+</html>

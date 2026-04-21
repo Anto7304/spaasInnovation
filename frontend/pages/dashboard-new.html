@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Smash&Heal</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            color: white;
+            border-radius: 16px;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .dashboard-header p {
+            margin: 5px 0 0 0;
+            opacity: 0.9;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #4CAF50;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .stat-card.paid {
+            border-left-color: #66BB6A;
+        }
+
+        .stat-card.balance {
+            border-left-color: #FFC107;
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: #888;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #264d24;
+            margin: 0;
+        }
+
+        .stat-subtext {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 8px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            color: #264d24;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group-dashboard {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group-dashboard label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-group-dashboard input,
+        .form-group-dashboard select {
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group-dashboard input:focus,
+        .form-group-dashboard select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .btn-book {
+            padding: 14px 24px;
+            background: linear-gradient(45deg, #4CAF50, #66BB6A);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-book:hover {
+            background: linear-gradient(45deg, #66BB6A, #81C784);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .sessions-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .session-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            background: #f9f9f9;
+        }
+
+        .session-info h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+
+        .session-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .session-status {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .session-status.pending {
+            background: #FFC107;
+            color: #333;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include header component -->
+    <div id="header-placeholder"></div>
+
+    <main class="dashboard-main" style="background: linear-gradient(135deg, #EAF8ED 0%, #DFF2E0 45%, #F5FBF6 100%); min-height: 100vh;">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Welcome, <span id="user-name">User</span>!</h1>
+                    <p>Your mental wellness journey dashboard</p>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3><i class="fas fa-calendar-check"></i> Sessions Booked</h3>
+                    <p class="stat-value" id="sessions-booked">0</p>
+                    <p class="stat-subtext">Total sessions scheduled</p>
+                </div>
+
+                <div class="stat-card paid">
+                    <h3><i class="fas fa-credit-card"></i> Amount Paid</h3>
+                    <p class="stat-value" id="amount-paid">KES 0</p>
+                    <p class="stat-subtext">Total payments processed</p>
+                </div>
+
+                <div class="stat-card balance">
+                    <h3><i class="fas fa-wallet"></i> Balance Due</h3>
+                    <p class="stat-value" id="amount-balance">KES 0</p>
+                    <p class="stat-subtext">Amount remaining to pay</p>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Book Session Card -->
+                <div class="card">
+                    <h2><i class="fas fa-plus-circle"></i> Book a New Session</h2>
+                    <form id="booking-form" class="booking-form">
+                        <div class="form-group-dashboard">
+                            <label for="session-type">Session Type</label>
+                            <select id="session-type" name="session-type" required>
+                                <option value="">-- Select Session Type --</option>
+                                <option value="individual">Individual Session (200 KES)</option>
+                                <option value="group">Group Session (200 KES)</option>
+                                <option value="intensive">Intensive Session (200 KES)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group-dashboard">
+                            <label for="session-date">Date</label>
+                            <input type="date" id="session-date" name="session-date" required>
+                        </div>
+
+                        <div class="form-group-dashboard">
+                            <label for="session-time">Time</label>
+                            <input type="time" id="session-time" name="session-time" required>
+                        </div>
+
+                        <button type="submit" class="btn-book">
+                            <i class="fas fa-check"></i> Book Session
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Sessions History Card -->
+                <div class="card">
+                    <h2><i class="fas fa-history"></i> Session History</h2>
+                    <div class="sessions-list" id="sessions-list">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>No sessions booked yet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include footer component -->
+    <div id="footer-placeholder"></div>
+
+    <script src="../../assets/js/auth.js"></script>
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+
+        // Check authentication
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                window.location.href = './login.html';
+                return;
+            }
+        }
+
+        // Load user dashboard data
+        async function loadDashboardData() {
+            const token = localStorage.getItem('authToken');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+            if (!token) {
+                window.location.href = './login.html';
+                return;
+            }
+
+            // Update user name
+            document.getElementById('user-name').textContent = currentUser.fullName || 'User';
+
+            // Update stats
+            document.getElementById('sessions-booked').textContent = currentUser.sessionsBooked || 0;
+            document.getElementById('amount-paid').textContent = `KES ${currentUser.amountPaid || 0}`;
+            
+            const balance = Math.max(0, (currentUser.totalAmount || 0) - (currentUser.amountPaid || 0));
+            document.getElementById('amount-balance').textContent = `KES ${balance}`;
+
+            // Load sessions
+            try {
+                const response = await fetch(`${API_URL}/bookings/history`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    displaySessions(data.bookings);
+                }
+            } catch (error) {
+                console.error('Failed to load sessions:', error);
+            }
+        }
+
+        function displaySessions(bookings) {
+            const sessionsList = document.getElementById('sessions-list');
+
+            if (!bookings || bookings.length === 0) {
+                sessionsList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>No sessions booked yet</p>
+                    </div>
+                `;
+                return;
+            }
+
+            sessionsList.innerHTML = bookings.map(booking => `
+                <div class="session-item">
+                    <div class="session-info">
+                        <h4>${capitalizeFirst(booking.sessionType)} Session</h4>
+                        <p>
+                            <i class="fas fa-calendar"></i> ${new Date(booking.bookingDate).toLocaleDateString()} 
+                            <i class="fas fa-clock"></i> ${new Date(booking.bookingDate).toLocaleTimeString()}
+                        </p>
+                        <p><i class="fas fa-credit-card"></i> KES ${booking.price}</p>
+                    </div>
+                    <span class="session-status ${booking.paymentStatus}">${capitalizeFirst(booking.paymentStatus)}</span>
+                </div>
+            `).join('');
+        }
+
+        function capitalizeFirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        // Handle booking form submission
+        document.getElementById('booking-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const token = localStorage.getItem('authToken');
+            const sessionType = document.getElementById('session-type').value;
+            const date = document.getElementById('session-date').value;
+            const time = document.getElementById('session-time').value;
+
+            if (!sessionType || !date || !time) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/bookings`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sessionType,
+                        bookingDate: `${date}T${time}:00.000Z`,
+                        notes: 'Booked from dashboard'
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert('Session booked successfully!');
+                    document.getElementById('booking-form').reset();
+                    // Reload dashboard data
+                    loadDashboardData();
+                } else {
+                    alert(data.error || 'Failed to book session');
+                }
+            } catch (error) {
+                console.error('Booking error:', error);
+                alert('Network error. Please try again.');
+            }
+        });
+
+        // Set minimum date to today
+        document.getElementById('session-date').min = new Date().toISOString().split('T')[0];
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            loadDashboardData();
+
+            // Load header and footer
+            fetch('../../components/header.html')
+                .then(r => r.text())
+                .then(html => document.getElementById('header-placeholder').innerHTML = html);
+
+            fetch('../../components/footer.html')
+                .then(r => r.text())
+                .then(html => document.getElementById('footer-placeholder').innerHTML = html);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Smash&Heal</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <main class="register-main">
+        <div class="register-container">
+            <div class="register-card">
+                <div class="register-header">
+                    <div class="logo-container">
+                        <div class="logo">
+                            <div class="logo-icon">
+                                <i class="fas fa-leaf"></i>
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="logo-text">
+                                <span class="smash">Smash</span>
+                                <span class="and">&</span>
+                                <span class="heal">Heal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h1>Join Smash&Heal</h1>
+                    <p>Create your account to start your mental wellness journey</p>
+                </div>
+
+                <form action="#" method="POST" id="register-form" class="register-form">
+                    <div class="form-group">
+                        <label for="full-name">
+                            <i class="fas fa-user"></i>
+                            Full Name
+                        </label>
+                        <input type="text" id="full-name" name="full-name" required placeholder="Enter your full name">
+                        <div class="field-error" id="full-name-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-email">
+                            <i class="fas fa-envelope"></i>
+                            Email Address
+                        </label>
+                        <input type="email" id="register-email" name="register-email" required
+                            placeholder="Enter your email address">
+                        <div class="field-error" id="register-email-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-password">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <div class="password-input-container">
+                            <input type="password" id="register-password" name="register-password" required
+                                placeholder="Create a strong password">
+                            <button type="button" class="password-toggle" id="register-password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="field-error" id="register-password-error"></div>
+                        <div class="password-requirements" id="password-requirements">
+                            <p>Password must contain:</p>
+                            <ul>
+                                <li id="req-length" class="requirement">
+                                    <i class="fas fa-circle-notch requirement-icon unchecked"></i>
+                                    <i class="fas fa-check-circle requirement-icon checked" style="display: none;"></i>
+                                    <span>At least 8 characters</span>
+                                </li>
+                                <li id="req-uppercase" class="requirement">
+                                    <i class="fas fa-circle-notch requirement-icon unchecked"></i>
+                                    <i class="fas fa-check-circle requirement-icon checked" style="display: none;"></i>
+                                    <span>One uppercase letter (A-Z)</span>
+                                </li>
+                                <li id="req-lowercase" class="requirement">
+                                    <i class="fas fa-circle-notch requirement-icon unchecked"></i>
+                                    <i class="fas fa-check-circle requirement-icon checked" style="display: none;"></i>
+                                    <span>One lowercase letter (a-z)</span>
+                                </li>
+                                <li id="req-number" class="requirement">
+                                    <i class="fas fa-circle-notch requirement-icon unchecked"></i>
+                                    <i class="fas fa-check-circle requirement-icon checked" style="display: none;"></i>
+                                    <span>One number (0-9)</span>
+                                </li>
+                                <li id="req-symbol" class="requirement">
+                                    <i class="fas fa-circle-notch requirement-icon unchecked"></i>
+                                    <i class="fas fa-check-circle requirement-icon checked" style="display: none;"></i>
+                                    <span>One special character (!@#$%^&*)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">
+                            <i class="fas fa-lock"></i>
+                            Confirm Password
+                        </label>
+                        <div class="password-input-container">
+                            <input type="password" id="confirm-password" name="confirm-password" required
+                                placeholder="Confirm your password">
+                            <button type="button" class="password-toggle" id="confirm-password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="field-error" id="confirm-password-error"></div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="terms-agree" required>
+                            I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#"
+                                class="terms-link">Privacy Policy</a>
+                        </label>
+                        <div class="field-error" id="terms-error"></div>
+                    </div>
+
+                    <button type="submit" class="register-btn">
+                        <span class="btn-text">Create Account</span>
+                        <div class="btn-loader" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                </form>
+
+                <div class="register-footer">
+                    <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+                    <div class="social-login">
+                        <button class="social-btn google-btn">
+                            <i class="fab fa-google"></i>
+                            Continue with Google
+                        </button>
+                        <button class="social-btn facebook-btn">
+                            <i class="fab fa-facebook-f"></i>
+                            Continue with Facebook
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Password toggle functionality
+        const registerPasswordToggle = document.getElementById('register-password-toggle');
+        const registerPasswordInput = document.getElementById('register-password');
+
+        if (registerPasswordToggle) {
+            registerPasswordToggle.addEventListener('click', function () {
+                const icon = this.querySelector('i');
+                if (registerPasswordInput.type === 'password') {
+                    registerPasswordInput.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    registerPasswordInput.type = 'password';
+                    icon.className = 'fas fa-eye';
+                }
+            });
+        }
+
+        const confirmPasswordToggle = document.getElementById('confirm-password-toggle');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+
+        if (confirmPasswordToggle) {
+            confirmPasswordToggle.addEventListener('click', function () {
+                const icon = this.querySelector('i');
+                if (confirmPasswordInput.type === 'password') {
+                    confirmPasswordInput.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    confirmPasswordInput.type = 'password';
+                    icon.className = 'fas fa-eye';
+                }
+            });
+        }
+
+        // Password requirements validation
+        function updatePasswordRequirements(password) {
+            const lengthReq = document.getElementById('req-length');
+            if (password.length >= 8) {
+                lengthReq.classList.add('met');
+            } else {
+                lengthReq.classList.remove('met');
+            }
+
+            const uppercaseReq = document.getElementById('req-uppercase');
+            if (/[A-Z]/.test(password)) {
+                uppercaseReq.classList.add('met');
+            } else {
+                uppercaseReq.classList.remove('met');
+            }
+
+            const lowercaseReq = document.getElementById('req-lowercase');
+            if (/[a-z]/.test(password)) {
+                lowercaseReq.classList.add('met');
+            } else {
+                lowercaseReq.classList.remove('met');
+            }
+
+            const numberReq = document.getElementById('req-number');
+            if (/[0-9]/.test(password)) {
+                numberReq.classList.add('met');
+            } else {
+                numberReq.classList.remove('met');
+            }
+
+            const symbolReq = document.getElementById('req-symbol');
+            if (/[!@#$%^&*]/.test(password)) {
+                symbolReq.classList.add('met');
+            } else {
+                symbolReq.classList.remove('met');
+            }
+        }
+
+        if (registerPasswordInput) {
+            registerPasswordInput.addEventListener('input', function () {
+                updatePasswordRequirements(this.value);
+            });
+        }
+
+        // Form submission handler
+        const registerForm = document.getElementById('register-form');
+        if (registerForm) {
+            registerForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const fullName = document.getElementById('full-name').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                const termsAgree = document.getElementById('terms-agree').checked;
+
+                document.getElementById('full-name-error').textContent = '';
+                document.getElementById('register-email-error').textContent = '';
+                document.getElementById('register-password-error').textContent = '';
+                document.getElementById('confirm-password-error').textContent = '';
+                document.getElementById('terms-error').textContent = '';
+
+                let isValid = true;
+
+                if (!fullName) {
+                    document.getElementById('full-name-error').textContent = 'Full name is required';
+                    isValid = false;
+                }
+
+                if (!email) {
+                    document.getElementById('register-email-error').textContent = 'Email is required';
+                    isValid = false;
+                } else if (!email.includes('@')) {
+                    document.getElementById('register-email-error').textContent = 'Please enter a valid email';
+                    isValid = false;
+                }
+
+                if (!password) {
+                    document.getElementById('register-password-error').textContent = 'Password is required';
+                    isValid = false;
+                } else {
+                    if (password.length < 8) {
+                        document.getElementById('register-password-error').textContent = 'Password must be at least 8 characters';
+                        isValid = false;
+                    } else if (!/[A-Z]/.test(password)) {
+                        document.getElementById('register-password-error').textContent = 'Password must contain an uppercase letter';
+                        isValid = false;
+                    } else if (!/[a-z]/.test(password)) {
+                        document.getElementById('register-password-error').textContent = 'Password must contain a lowercase letter';
+                        isValid = false;
+                    } else if (!/[0-9]/.test(password)) {
+                        document.getElementById('register-password-error').textContent = 'Password must contain a number';
+                        isValid = false;
+                    } else if (!/[!@#$%^&*]/.test(password)) {
+                        document.getElementById('register-password-error').textContent = 'Password must contain a special character';
+                        isValid = false;
+                    }
+                }
+
+                if (!confirmPassword) {
+                    document.getElementById('confirm-password-error').textContent = 'Please confirm your password';
+                    isValid = false;
+                } else if (password !== confirmPassword) {
+                    document.getElementById('confirm-password-error').textContent = 'Passwords do not match';
+                    isValid = false;
+                }
+
+                if (!termsAgree) {
+                    document.getElementById('terms-error').textContent = 'You must agree to the terms';
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    const btn = document.querySelector('.register-btn');
+                    const btnText = btn.querySelector('.btn-text');
+                    const btnLoader = btn.querySelector('.btn-loader');
+                    btnText.style.display = 'none';
+                    btnLoader.style.display = 'inline-block';
+                    btn.disabled = true;
+
+                    setTimeout(() => {
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userEmail', email);
+                        localStorage.setItem('userName', fullName);
+                        alert('Registration successful! Welcome to Smash&Heal!');
+                        window.location.href = '../index.html';
+                    }, 1500);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
