@@ -1,5 +1,9 @@
 // assets/js/auth.js - Authentication Module for Smash&Heal
+<<<<<<< HEAD
+const API_URL = 'http://localhost:5000/api';
+=======
 const API_URL = 'https://smashheal.onrender.com/api';
+>>>>>>> 3bac87dae476e4632d4284fde123bc23b4f470ab
 
 // Password validation utilities
 const PasswordValidator = {
@@ -198,10 +202,34 @@ async function handleLogin(event) {
     
     if (result.success) {
         const user = result.user;
-        if (user.role === 'admin') {
-            window.location.href = '/pages/admin-dashboard.html';
-        } else {
-            window.location.href = '/pages/dashboard.html';
+        
+        // Check if intake is completed
+        try {
+            const intakeResponse = await fetch(`${API_URL}/intake/status`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const intakeData = await intakeResponse.json();
+            
+            if (intakeResponse.ok && intakeData.success && intakeData.completed) {
+                // Intake completed, go to dashboard
+                if (user.role === 'admin') {
+                    window.location.href = '/pages/admin-dashboard.html';
+                } else {
+                    window.location.href = '/pages/dashboard.html';
+                }
+            } else {
+                // Intake not completed, go to intake form
+                window.location.href = '/pages/intake.html';
+            }
+        } catch (error) {
+            console.error('Error checking intake status:', error);
+            // On error, default to intake form
+            window.location.href = '/pages/intake.html';
         }
     } else {
         if (passwordError) passwordError.textContent = result.message;
