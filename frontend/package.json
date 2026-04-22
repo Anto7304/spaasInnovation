@@ -1,18 +1,10 @@
 {
-  "name": "smash-and-heal-frontend",
+  "name": "smashandheal-frontend",
   "version": "1.0.0",
-  "description": "Frontend for Smash&Heal mental wellness platform",
-  "main": "index.html",
+  "description": "Frontend for Smash&Heal Mental Awareness Program",
   "scripts": {
-    "start": "npx serve . -l 8000",
-    "dev": "npx serve . -l 8000",
-    "build": "echo 'No build step required for static files'",
-    "preview": "npx serve . -l 8000"
+    "build": "echo 'No build step required'"
   },
-  "keywords": ["mental-health", "wellness", "frontend"],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "serve": "^14.2.1"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
