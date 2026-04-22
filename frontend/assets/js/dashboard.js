@@ -1,5 +1,5 @@
 // dashboard.js - User Dashboard with Backend API
-const API_URL = 'http://localhost:5001/api';
+const API_URL = 'https://smashheal.onrender.com/api';
 
 // Check authentication
 function checkAuth() {

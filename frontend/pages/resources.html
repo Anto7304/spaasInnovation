@@ -6,7 +6,7 @@
     <title>Resources - Smash&Heal</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/main.css">
+    
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/resources.css">
 </head>
@@ -31,42 +31,46 @@
                 </div>
 
                 <div class="resources-grid">
+                    <!-- Downloadable PDFs -->
                     <div class="resource-category">
                         <i class="fas fa-file-pdf"></i>
                         <h3>Downloadable PDFs</h3>
                         <ul>
-                            <li><a href="#">Guide to Mental Wellness</a></li>
-                            <li><a href="#">Coping Strategies for Stress</a></li>
-                            <li><a href="#">Mindfulness Techniques</a></li>
-                            <li><a href="#">Daily Mood Tracker</a></li>
-                            <li><a href="#">Crisis Safety Plan</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Guide to Mental Wellness PDF')">Guide to Mental Wellness</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Coping Strategies for Stress PDF')">Coping Strategies for Stress</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Mindfulness Techniques PDF')">Mindfulness Techniques</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Daily Mood Tracker PDF')">Daily Mood Tracker</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Crisis Safety Plan PDF')">Crisis Safety Plan</a></li>
                         </ul>
                     </div>
 
+                    <!-- Guides & Articles -->
                     <div class="resource-category">
                         <i class="fas fa-book-open"></i>
                         <h3>Guides & Articles</h3>
                         <ul>
-                            <li><a href="#">Understanding Anxiety</a></li>
-                            <li><a href="#">Building Resilience</a></li>
-                            <li><a href="#">Healthy Living Tips</a></li>
-                            <li><a href="#">Managing Depression</a></li>
-                            <li><a href="#">Improving Sleep Hygiene</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Understanding Anxiety Article')">Understanding Anxiety</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Building Resilience Guide')">Building Resilience</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Healthy Living Tips Article')">Healthy Living Tips</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Managing Depression Guide')">Managing Depression</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Improving Sleep Hygiene Article')">Improving Sleep Hygiene</a></li>
                         </ul>
                     </div>
 
+                    <!-- Videos -->
                     <div class="resource-category">
                         <i class="fas fa-video"></i>
                         <h3>Videos</h3>
                         <ul>
-                            <li><a href="#">Introduction to Mindfulness</a></li>
-                            <li><a href="#">Yoga for Mental Health</a></li>
-                            <li><a href="#">Breathing Exercises</a></li>
-                            <li><a href="#">Guided Meditation</a></li>
-                            <li><a href="#">Progressive Muscle Relaxation</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Introduction to Mindfulness Video')">Introduction to Mindfulness</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Yoga for Mental Health Video')">Yoga for Mental Health</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Breathing Exercises Video')">Breathing Exercises</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Guided Meditation Video')">Guided Meditation</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Progressive Muscle Relaxation Video')">Progressive Muscle Relaxation</a></li>
                         </ul>
                     </div>
 
+                    <!-- Crisis Hotlines -->
                     <div class="resource-category">
                         <i class="fas fa-phone-alt"></i>
                         <h3>Crisis Hotlines</h3>
@@ -79,27 +83,29 @@
                         </ul>
                     </div>
 
+                    <!-- Recommended Apps -->
                     <div class="resource-category">
                         <i class="fas fa-mobile-alt"></i>
                         <h3>Recommended Apps</h3>
                         <ul>
-                            <li><a href="#">Calm - Meditation & Sleep</a></li>
-                            <li><a href="#">Headspace - Mindfulness</a></li>
-                            <li><a href="#">BetterHelp - Online Therapy</a></li>
-                            <li><a href="#">Daylio - Mood Tracker</a></li>
-                            <li><a href="#">Sanvello - Anxiety & Depression</a></li>
+                            <li><a href="https://www.calm.com" target="_blank">Calm - Meditation & Sleep</a></li>
+                            <li><a href="https://www.headspace.com" target="_blank">Headspace - Mindfulness</a></li>
+                            <li><a href="https://www.betterhelp.com" target="_blank">BetterHelp - Online Therapy</a></li>
+                            <li><a href="https://daylio.net" target="_blank">Daylio - Mood Tracker</a></li>
+                            <li><a href="https://www.sanvello.com" target="_blank">Sanvello - Anxiety & Depression</a></li>
                         </ul>
                     </div>
 
+                    <!-- Support Groups -->
                     <div class="resource-category">
                         <i class="fas fa-hand-holding-heart"></i>
                         <h3>Support Groups</h3>
                         <ul>
-                            <li><a href="#">NAMI Connection Support Group</a></li>
-                            <li><a href="#">Anxiety & Depression Support Group</a></li>
-                            <li><a href="#">PTSD Support Community</a></li>
-                            <li><a href="#">GriefShare Support Groups</a></li>
-                            <li><a href="#">LGBTQ+ Mental Health Support</a></li>
+                            <li><a href="https://www.nami.org" target="_blank">NAMI Connection Support Group</a></li>
+                            <li><a href="#" onclick="showResourceAlert('Anxiety & Depression Support Group info')">Anxiety & Depression Support Group</a></li>
+                            <li><a href="#" onclick="showResourceAlert('PTSD Support Community info')">PTSD Support Community</a></li>
+                            <li><a href="#" onclick="showResourceAlert('GriefShare Support Groups info')">GriefShare Support Groups</a></li>
+                            <li><a href="#" onclick="showResourceAlert('LGBTQ+ Mental Health Support info')">LGBTQ+ Mental Health Support</a></li>
                         </ul>
                     </div>
                 </div>
@@ -119,25 +125,48 @@
 
     <div id="footer-placeholder"></div>
 
-    <script src="/assets/js/auth.js"></script>
-    <script src="/assets/js/components.js"></script>
-    <script src="/assets/js/main.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/components.js"></script>
+    
     <script>
+        // Show alert for resources (since actual files aren't available)
+        function showResourceAlert(resourceName) {
+            alert(`📚 "${resourceName}" will be available soon!\n\nWe're constantly adding new resources to support your mental wellness journey.`);
+        }
+
         // Search functionality
         document.getElementById('searchBtn')?.addEventListener('click', function() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const categories = document.querySelectorAll('.resource-category');
+            let hasResults = false;
             
             categories.forEach(category => {
                 const text = category.textContent.toLowerCase();
                 if (text.includes(searchTerm) && searchTerm !== '') {
                     category.style.display = 'block';
+                    hasResults = true;
                 } else if (searchTerm === '') {
                     category.style.display = 'block';
+                    hasResults = true;
                 } else {
                     category.style.display = 'none';
                 }
             });
+            
+            // Show/hide no results message
+            let noResultsMsg = document.querySelector('.no-results');
+            if (!hasResults && searchTerm !== '') {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.className = 'no-results';
+                    noResultsMsg.innerHTML = '<i class="fas fa-search"></i><p>No resources found matching "' + searchTerm + '"</p>';
+                    document.querySelector('.resources-grid').parentNode.appendChild(noResultsMsg);
+                } else {
+                    noResultsMsg.style.display = 'block';
+                }
+            } else if (noResultsMsg) {
+                noResultsMsg.style.display = 'none';
+            }
         });
         
         document.getElementById('searchInput')?.addEventListener('keypress', function(e) {
@@ -146,8 +175,5 @@
             }
         });
     </script>
-    <script src="../assets/js/components.js"></script>
-    <script src="../assets/js/auth.js"></script>
-    <script src="../assets/js/main.js"></script>
 </body>
 </html>
