@@ -135,13 +135,11 @@ async function handleIntakeSubmit(event) {
         const data = await response.json();
         
         if (response.ok && data.success) {
-            // Success - redirect to dashboard
-            const user = getCurrentUser();
-            if (user.role === "admin") {
-                window.location.href = "/pages/admin-dashboard.html";
-            } else {
-                window.location.href = "/pages/dashboard.html";
-            }
+            // Success - redirect to consent form
+            window.location.href = "/pages/consent.html";
+        } else {
+            // Success - redirect to consent form
+            window.location.href = "/pages/consent.html";
         } else {
             // Show error
             const errorMsg = data.message || "Failed to submit intake form";

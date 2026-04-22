@@ -9,6 +9,8 @@ router.post('/register', validateRegister, handleValidationErrors, authControlle
 router.post('/login', validateLogin, handleValidationErrors, authController.login);
 
 // Protected routes
+router.post('/consent', auth, authController.recordConsent);
 router.get('/profile', auth, authController.getProfile);
+router.post('/consent', auth, authController.recordConsent);
 
 module.exports = router;

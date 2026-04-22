@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consent Form - Spaas Innovation</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/auth.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Minimal inline styles for clarity */
+    .btn { padding: 10px 15px; border: none; cursor: pointer; margin: 5px; }
+    .btn-primary { background-color: #007bff; color: #fff; }
+    .btn-secondary { background-color: #6c757d; color: #fff; }
+    .btn:disabled { background-color: #ccc; cursor: not-allowed; }
+    .consent-warning { color: #b22222; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card consent-card">
+      <div class="auth-header">
+        <h1><i class="fas fa-file-signature"></i> Consent Form</h1>
+        <p>Please review and sign our consent form to continue</p>
+      </div>
+
+      <div class="consent-content">
+        <div class="consent-instructions">
+          <h3>Important: Please Read the Consent Form</h3>
+          <p>Before proceeding, you must review our complete consent form. Click the button below to open and read the document.</p>
+
+          <div class="consent-actions">
+            <a href="https://1drv.ms/w/c/42f91a42209b83a2/IQBsbr3B-lbJRZCUlKtcsgSwAUJnf_Rbzc-T9QBs1vsT3wE?e=t4fYo9"
+               target="_blank"
+               class="btn btn-primary consent-btn"
+               id="view-consent-btn">
+              <i class="fas fa-external-link-alt"></i> View Consent Form
+            </a>
+          </div>
+
+          <div class="consent-checkbox-section">
+            <div class="checkbox-container">
+              <input type="checkbox" id="consent-checkbox" name="consent-agreed">
+              <label for="consent-checkbox">
+                I have read, understood, and agree to the terms outlined in the consent form.
+              </label>
+            </div>
+
+            <div class="consent-warning" id="consent-warning" style="display:none;">
+              <i class="fas fa-exclamation-triangle"></i>
+              <small>You must check this box to continue.</small>
+            </div>
+          </div>
+
+          <div class="consent-buttons">
+            <button type="button" class="btn btn-secondary" id="decline-btn">
+              <i class="fas fa-times"></i> I Do Not Agree
+            </button>
+            <button type="button" class="btn btn-primary" id="agree-btn" disabled>
+              <i class="fas fa-check"></i> I Agree - Continue
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-footer">
+        <p><a href="../index.html"><i class="fas fa-home"></i> Back to Home</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/consent.js"></script>
+
+</body>
+</html>

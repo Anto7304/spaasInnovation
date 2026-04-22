@@ -2,46 +2,7 @@
 const mongoose = require('mongoose');
 
 // In-memory storage for mock mode
-const mockData = {
-    users: [],
-    bookings: [],
-    resources: []
-};
-
-// Mock database functions
-class MockDB {
-    constructor() {
-        this.users = [];
-        this.bookings = [];
-        this.resources = [];
-        this.nextId = 1;
-    }
-
-    async saveUser(userData) {
-        const user = {
-            _id: this.nextId++,
-            ...userData,
-            createdAt: new Date(),
-            __v: 0
-        };
-        this.users.push(user);
-        return user;
-    }
-
-    async findUser(email) {
-        return this.users.find(u => u.email === email);
-    }
-
-    async findUserById(id) {
-        return this.users.find(u => u._id == id);
-    }
-
-    getAllUsers() {
-        return this.users;
-    }
-}
-
-const mockDBInstance = new MockDB();
+const mockUsers = [];
 
 const connectDB = async () => {
     // If using mock database
@@ -49,39 +10,51 @@ const connectDB = async () => {
         console.log('⚠️ Using MOCK database mode');
         console.log('📝 Data will NOT be persisted between restarts');
         
-        // Add a default admin user for testing
-        if (mockDBInstance.users.length === 0) {
+        // Initialize mock users
+        if (mockUsers.length === 0) {
             const bcrypt = require('bcryptjs');
-            const hashedPassword = await bcrypt.hash('admin123', 10);
-            mockDBInstance.users.push({
-                _id: 1,
+            const admin = await bcrypt.hash('admin123', 10);
+            const user = await bcrypt.hash('password123', 10);
+            
+            mockUsers.push({
+                _id: new mongoose.Types.ObjectId(),
                 name: 'Admin User',
                 email: 'admin@example.com',
-                password: hashedPassword,
+                password: admin,
                 role: 'admin',
+                consentGiven: false,
+                consentDate: null,
                 createdAt: new Date(),
                 __v: 0
             });
-            mockDBInstance.users.push({
-                _id: 2,
+            mockUsers.push({
+                _id: new mongoose.Types.ObjectId(),
                 name: 'Demo User',
                 email: 'user@example.com',
-                password: await bcrypt.hash('password123', 10),
+                password: user,
                 role: 'user',
+                consentGiven: false,
+                consentDate: null,
                 createdAt: new Date(),
                 __v: 0
             });
             console.log('✅ Mock users created: admin@example.com / admin123, user@example.com / password123');
         }
         
-        // Override mongoose model methods to use mock data
-        return { mock: true, db: mockDBInstance };
+        // Set up global mock methods
+        global.MOCK_MODE = true;
+        global.MOCK_USERS = mockUsers;
+        
+        // Don't try to connect to MongoDB
+        return { mock: true, mockUsers };
     }
     
     try {
         const conn = await mongoose.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 5000,
         });
         console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
         return conn;
