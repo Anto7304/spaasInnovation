@@ -70,9 +70,11 @@ const startServer = async () => {
         // ROUTES
         // ========================================
         app.use('/api/auth', require('./routes/authRoutes'));
+        app.use('/api/intake', require('./routes/intakeRoutes'));
         app.use('/api/bookings', require('./routes/bookingRoutes'));
         app.use('/api/resources', require('./routes/resourceRoutes'));
         app.use('/api/admin', require('./routes/adminRoutes'));
+        app.use('/api/chat', require('./routes/chatRoutes'));
 
         // ========================================
         // HEALTH CHECK ENDPOINTS
